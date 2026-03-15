@@ -65,15 +65,9 @@
             width: 140px;
             height: 140px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 48px;
-            font-weight: 700;
             flex-shrink: 0;
-            letter-spacing: -1px;
+            object-fit: cover;       /* 让图片裁剪填满，不变形 */
+            object-position: center; /* 居中裁剪 */
         }
 
         .header-text h1 {
@@ -350,7 +344,7 @@
 <header>
     <div class="container">
         <div class="header-content">
-            <div class="avatar">CM</div>
+            <img class="avatar" src="https://i.imgur.com/3HgIflt.jpeg" alt="Changlian Ma">
             <div class="header-text">
                 <h1>Changlian Ma (马畅联)</h1>
                 <p class="subtitle">M.S. Student in Computer Science &amp; Technology, Nanjing University</p>
