@@ -161,6 +161,10 @@
 
         /* Publications */
         .pub-item {
+            display: grid;
+            grid-template-columns: 190px minmax(0, 1fr);
+            gap: 20px;
+            align-items: start;
             padding: 18px 20px;
             background: var(--section-bg);
             border-radius: 10px;
@@ -170,6 +174,29 @@
         }
         .pub-item:hover {
             box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .pub-thumbnail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 130px;
+            padding: 6px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+        .pub-thumbnail img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .pub-content {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+        .pub-title a {
+            color: inherit;
         }
 
         .pub-title {
@@ -200,12 +227,39 @@
             border-radius: 4px;
         }
 
-        .pub-venue.submitted {
-            color: #b7791f;
-            background: #fefcbf;
+        .pub-authors-more {
+            font-size: 12.5px;
+            color: var(--text-light);
+            margin: -2px 0 8px;
+        }
+        .pub-authors-more summary {
+            width: fit-content;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        .pub-authors-more p {
+            margin-top: 4px;
+        }
+        .pub-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            margin-top: 10px;
+            font-size: 12.5px;
+            font-weight: 500;
+        }
+        a:focus-visible, summary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
         }
 
         .pub-desc {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            max-height: 4.95em;
+            overflow: hidden;
             font-size: 13.5px;
             color: var(--text-light);
             margin-top: 8px;
@@ -312,7 +366,26 @@
         }
 
         /* Responsive */
+        @media (max-width: 760px) {
+            .pub-item {
+                grid-template-columns: 150px minmax(0, 1fr);
+                gap: 16px;
+            }
+        }
         @media (max-width: 640px) {
+            .pub-item {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 14px;
+                padding: 16px;
+            }
+            .pub-thumbnail {
+                min-height: 0;
+                padding: 10px;
+            }
+            .pub-thumbnail img {
+                max-height: 220px;
+                object-fit: contain;
+            }
             .header-content {
                 flex-direction: column;
                 align-items: center;
@@ -346,12 +419,12 @@
         <div class="header-content">
             <img class="avatar" src="https://i.imgur.com/3HgIflt.jpeg" alt="Changlian Ma">
             <div class="header-text">
-                <h1>Changlian Ma (马畅联)</h1>
+                <h1>Changlian Ma</h1>
                 <p class="subtitle">M.S. Student in Computer Science &amp; Technology, Nanjing University</p>
                 <p class="bio">
-                    I am a first-year Master's student at <strong>Nanjing University</strong>, advised by Prof. <a href="https://wanglimin.github.io/" target="_blank">Limin Wang</a>.
+                    I am a Master's student at <strong>Nanjing University</strong>, advised by Prof. <a href="https://wanglimin.github.io/" target="_blank">Limin Wang</a>.
                     I am currently a research intern at <strong>Shanghai AI Laboratory (OpenGVLab)</strong>.
-                    My research interests lie in <strong>Multimodal Large Language Models</strong>, <strong>Computer Vision</strong>, and <strong>Video Understanding</strong>.
+                    My research focuses on <strong>Multimodal Large Language Models</strong> and <strong>Reinforcement Learning for LLMs</strong>, with interests in <strong>AI4Gaming</strong> and <strong>AI4Finance</strong>.
                     Previously, I received my B.Eng. from Beijing University of Posts and Telecommunications in 2025.
                 </p>
                 <div class="links">
@@ -378,7 +451,8 @@
             <div class="interests">
                 <span>Multimodal Large Language Models</span>
                 <span>Reinforcement Learning for LLMs</span>
-                <span>Computer Vision</span>
+                <span>AI4Gaming</span>
+                <span>AI4Finance</span>
             </div>
         </section>
 
@@ -386,32 +460,123 @@
         <section>
             <h2>Publications</h2>
 
-            <div class="pub-item">
-                <div class="pub-title">Balancing the Experts: Unlocking LoRA-MoE for GRPO via Mechanism-Aware Rewards</div>
-                <div class="pub-authors"><span class="me">Changlian Ma</span>, et al.</div>
-                <span class="pub-venue">ICLR 2026</span>
-                <p class="pub-desc">
-                    We propose RO-GRPO, a framework that addresses the router collapse problem in LoRA-MoE during reinforcement learning fine-tuning. By converting internal routing statistics into mechanism-aware rewards, RO-GRPO enables joint optimization without auxiliary losses, improving task accuracy, expert utilization, and inference efficiency across unimodal and multimodal math reasoning benchmarks.
-                </p>
-            </div>
+            <article class="pub-item" id="ro-grpo">
+                <a class="pub-thumbnail" href="assets/publications/ro-grpo.webp" target="_blank" rel="noopener noreferrer" aria-label="View ro-grpo figure at full size">
+                    <img src="assets/publications/ro-grpo.webp" alt="RO-GRPO framework converting expert routing statistics into mechanism-aware rewards." width="990" height="597" loading="lazy" decoding="async">
+                </a>
+                <div class="pub-content">
+                    <h3 class="pub-title"><a href="https://proceedings.iclr.cc/paper_files/paper/2026/hash/7f403d7240d8a5b5335e60635ea2e975-Abstract-Conference.html" target="_blank" rel="noopener noreferrer">Balancing the Experts: Unlocking LoRA-MoE for GRPO via Mechanism-Aware Rewards</a></h3>
+                    <p class="pub-authors"><span class="me">Changlian Ma</span>, Zizheng Huang, Xiangyu Zeng, Yi Wang, Cheng Liang, Kun Tian, Xinhai Zhao, Limin Wang</p>
+                    <span class="pub-venue">ICLR 2026</span>
+                    <p class="pub-desc">Mechanism-aware routing rewards improve expert utilization and reasoning in LoRA-MoE during GRPO fine-tuning.</p>
+                    <div class="pub-links">
+                        <a href="https://proceedings.iclr.cc/paper_files/paper/2026/hash/7f403d7240d8a5b5335e60635ea2e975-Abstract-Conference.html" target="_blank" rel="noopener noreferrer">Paper</a>
+                    </div>
+                </div>
+            </article>
 
-            <div class="pub-item">
-                <div class="pub-title">InternVideo2.5: Empowering Video MLLMs with Long and Rich Context Modeling</div>
-                <div class="pub-authors">Yi Wang, ..., <span class="me">Changlian Ma</span>, et al.</div>
-                <span class="pub-venue">Technical Report</span>
-                <p class="pub-desc">
-                    InternVideo2.5 enhances multimodal LLMs for long video understanding and fine-grained visual perception through adaptive hierarchical token compression and visual task reward optimization.
-                </p>
-            </div>
+            <article class="pub-item" id="timelens2">
+                <a class="pub-thumbnail" href="assets/publications/timelens2.webp" target="_blank" rel="noopener noreferrer" aria-label="View timelens2 figure at full size">
+                    <img src="assets/publications/timelens2.webp" alt="TimeLens2 overview across seven temporal-grounding benchmarks and query types." width="1000" height="321" loading="lazy" decoding="async">
+                </a>
+                <div class="pub-content">
+                    <h3 class="pub-title"><a href="https://arxiv.org/abs/2607.17423" target="_blank" rel="noopener noreferrer">TimeLens2: Generalist Video Temporal Grounding with Multimodal LLMs</a></h3>
+                    <p class="pub-authors">Yuhan Zhu, <span class="me">Changlian Ma</span>, Xiangyu Zeng, Xinhao Li, Zhiqiu Zhang, Songze Li, Jun Zhang, Tianxiang Jiang, Yuandong Yang, Ziang Yan, et al.</p>
+                    <details class="pub-authors-more">
+                        <summary>Show 5 more authors</summary>
+                        <p>Zikang Wang, Xinyu Chen, Haoran Chen, Shaowei Zhang, Limin Wang</p>
+                    </details>
+                    <span class="pub-venue">arXiv 2026</span>
+                    <p class="pub-desc">Generalist video temporal grounding with verified multi-span supervision and temporal Wasserstein rewards.</p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2607.17423" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://mcg-nju.github.io/TimeLens2/" target="_blank" rel="noopener noreferrer">Project</a>
+                        <a href="https://github.com/MCG-NJU/TimeLens2" target="_blank" rel="noopener noreferrer">Code</a>
+                    </div>
+                </div>
+            </article>
 
-            <div class="pub-item">
-                <div class="pub-title">Video-o3: Native Interleaved Clue Seeking for Long Video Multi-Hop Reasoning</div>
-                <div class="pub-authors">Xiangyu Zeng, ..., <span class="me">Changlian Ma</span>, et al.</div>
-                <span class="pub-venue submitted">Under Review at ICML 2026</span>
-                <p class="pub-desc">
-                    Video-o3 introduces a native interleaved tool-calling mechanism with trajectory-guided reinforcement learning, enabling multimodal LLMs to autonomously seek clues and perform multi-hop reasoning in long videos, achieving SOTA on multiple complex video benchmarks.
-                </p>
-            </div>
+            <article class="pub-item" id="onestreamer">
+                <a class="pub-thumbnail" href="assets/publications/onestreamer.webp" target="_blank" rel="noopener noreferrer" aria-label="View onestreamer figure at full size">
+                    <img src="assets/publications/onestreamer.webp" alt="Architecture showing streaming perception, hierarchical caption memory, and proactive responses in OneStreamer." width="1000" height="319" loading="lazy" decoding="async">
+                </a>
+                <div class="pub-content">
+                    <h3 class="pub-title"><a href="https://arxiv.org/abs/2610.01762" target="_blank" rel="noopener noreferrer">OneStreamer: Unifying Perception, Memory, and Proactive Response in Streaming Video Interaction</a></h3>
+                    <p class="pub-authors">Xiangyu Zeng, Yuandong Yang, Zhiqiu Zhang, Yuhan Zhu, Xinhao Li, Qingyi Si, Dingyu Yao, <span class="me">Changlian Ma</span>, Haoran Chen, Xinyu Chen, et al.</p>
+                    <details class="pub-authors-more">
+                        <summary>Show 14 more authors</summary>
+                        <p>Yansong Shi, Junhao Zhou, Yifei Li, Jun Zhang, Chuanyu Qin, Chenxu Yang, Xinlei Yu, Kun Ouyang, Yuchen Shao, Qianshan Wei, Changhai Zhou, Jun Gao, Jiaqi Wang, Limin Wang</p>
+                    </details>
+                    <span class="pub-venue">arXiv 2026</span>
+                    <p class="pub-desc">Streaming video interaction combining real-time perception, hierarchical caption memory, and evidence-grounded proactive responses.</p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2610.01762" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://mcg-nju.github.io/OneStreamer/" target="_blank" rel="noopener noreferrer">Project</a>
+                        <a href="https://github.com/MCG-NJU/OneStreamer" target="_blank" rel="noopener noreferrer">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="pub-item" id="videochat3">
+                <a class="pub-thumbnail" href="assets/publications/videochat3.webp" target="_blank" rel="noopener noreferrer" aria-label="View videochat3 figure at full size">
+                    <img src="assets/publications/videochat3.webp" alt="VideoChat3 overview of temporal perception, long-video understanding, grounding, and online proactive responses." width="1000" height="499" loading="lazy" decoding="async">
+                </a>
+                <div class="pub-content">
+                    <h3 class="pub-title"><a href="https://arxiv.org/abs/2607.14935" target="_blank" rel="noopener noreferrer">VideoChat3: Fully Open Video MLLM for Efficient and Generalist Video Understanding</a></h3>
+                    <p class="pub-authors">Xinhao Li, Yuhan Zhu, Xiangyu Zeng, Yuhao Dong, Haoning Wu, Zhiqiu Zhang, Yuandong Yang, <span class="me">Changlian Ma</span>, Qingyu Zhang, Yansong Shi, et al.</p>
+                    <details class="pub-authors-more">
+                        <summary>Show 17 more authors</summary>
+                        <p>Xinyu Chen, Haoran Chen, Zizheng Huang, Jun Zhang, Kun Ouyang, Lin Sui, Ziang Yan, Yicheng Xu, Chenting Wang, Yinan He, Hongjie Zhang, Yi Wang, Yu Qiao, Yali Wang, Ziwei Liu, Kai Chen, Limin Wang</p>
+                    </details>
+                    <span class="pub-venue">arXiv 2026</span>
+                    <p class="pub-desc">A fully open 4B video MLLM for efficient general, long-form, and streaming video understanding.</p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2607.14935" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://mcg-nju.github.io/VideoChat3/" target="_blank" rel="noopener noreferrer">Project</a>
+                        <a href="https://github.com/MCG-NJU/VideoChat3" target="_blank" rel="noopener noreferrer">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="pub-item" id="video-o3">
+                <a class="pub-thumbnail" href="assets/publications/video-o3.webp" target="_blank" rel="noopener noreferrer" aria-label="View video-o3 figure at full size">
+                    <img src="assets/publications/video-o3.webp" alt="Video-o3 overview illustrating iterative clue seeking with native video tool calls." width="1000" height="363" loading="lazy" decoding="async">
+                </a>
+                <div class="pub-content">
+                    <h3 class="pub-title"><a href="https://arxiv.org/abs/2601.23224" target="_blank" rel="noopener noreferrer">Video-o3: Native Interleaved Clue Seeking for Long Video Multi-Hop Reasoning</a></h3>
+                    <p class="pub-authors">Xiangyu Zeng, Zhiqiu Zhang, Yuhan Zhu, Xinhao Li, Zikang Wang, <span class="me">Changlian Ma</span>, Qingyu Zhang, Zizheng Huang, Kun Ouyang, Tianxiang Jiang, et al.</p>
+                    <details class="pub-authors-more">
+                        <summary>Show 5 more authors</summary>
+                        <p>Ziang Yan, Yi Wang, Hongjie Zhang, Yali Wang, Limin Wang</p>
+                    </details>
+                    <span class="pub-venue">ICML 2026</span>
+                    <p class="pub-desc">Native video tool use and trajectory-guided reinforcement learning enable iterative clue seeking and long-video multi-hop reasoning.</p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2601.23224" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://github.com/MCG-NJU/Video-o3" target="_blank" rel="noopener noreferrer">Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="pub-item" id="internvideo2-5">
+                <a class="pub-thumbnail" href="assets/publications/internvideo2-5.webp" target="_blank" rel="noopener noreferrer" aria-label="View internvideo2-5 figure at full size">
+                    <img src="assets/publications/internvideo2-5.webp" alt="InternVideo2.5 overview with video-understanding results and fine-grained temporal perception examples." width="1000" height="288" loading="lazy" decoding="async">
+                </a>
+                <div class="pub-content">
+                    <h3 class="pub-title"><a href="https://arxiv.org/abs/2501.12386" target="_blank" rel="noopener noreferrer">InternVideo2.5: Empowering Video MLLMs with Long and Rich Context Modeling</a></h3>
+                    <p class="pub-authors">Yi Wang, Xinhao Li, Ziang Yan, Yinan He, Jiashuo Yu, Xiangyu Zeng, Chenting Wang, <span class="me">Changlian Ma</span>, Haian Huang, Jianfei Gao, et al.</p>
+                    <details class="pub-authors-more">
+                        <summary>Show 6 more authors</summary>
+                        <p>Min Dou, Kai Chen, Wenhai Wang, Yu Qiao, Yali Wang, Limin Wang</p>
+                    </details>
+                    <span class="pub-venue">Technical Report 2025</span>
+                    <p class="pub-desc">Adaptive token compression and preference optimization strengthen fine-grained perception and long-context video understanding.</p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2501.12386" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://github.com/OpenGVLab/InternVideo/tree/main/InternVideo2.5" target="_blank" rel="noopener noreferrer">Code</a>
+                    </div>
+                </div>
+            </article>
         </section>
 
         <!-- Education -->
@@ -442,7 +607,7 @@
                     <span>Nov 2025 – Present</span>
                 </div>
                 <p class="exp-role">Research Intern</p>
-                <p class="exp-desc">Working on training, fine-tuning, and evaluation of video multimodal foundation models. Contributing to projects including InternVideo2.5 and Video-o3, focusing on long-context modeling, clue retrieval, and complex video reasoning.</p>
+                <p class="exp-desc">Conduct research on video multimodal foundation models, spanning long-context understanding, temporal grounding, and streaming interaction. Contribute to InternVideo2.5, Video-o3, TimeLens2, VideoChat3, and OneStreamer, with a focus on supervised and reinforcement learning, evidence-grounded reasoning, and memory-based proactive response.</p>
             </div>
             <div class="exp-item">
                 <div class="exp-header">
@@ -450,7 +615,7 @@
                     <span>Jan 2025 – Dec 2025</span>
                 </div>
                 <p class="exp-role">Research Collaboration</p>
-                <p class="exp-desc">Conducted research on reinforcement learning fine-tuning for autonomous driving multimodal models, focusing on the stability and expert utilization of LoRA-MoE in GRPO training. The resulting RO-GRPO method was accepted at ICLR 2026.</p>
+                <p class="exp-desc">Investigated reinforcement learning for parameter-efficient multimodal models, addressing routing collapse and expert underutilization in LoRA-MoE. Developed RO-GRPO, a mechanism-aware reward framework that improves routing behavior and reasoning performance during GRPO fine-tuning. This work was published at ICLR 2026.</p>
             </div>
         </section>
 
@@ -484,7 +649,7 @@
 
 <footer>
     <div class="container">
-        &copy; 2026 Changlian Ma · Last updated: March 2026
+        &copy; 2026 Changlian Ma · Last updated: October 2026
     </div>
 </footer>
 
